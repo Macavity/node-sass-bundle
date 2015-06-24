@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="the_island.assetic.filter.node_scss.class">TheIsland\NodeSassBundle\Assetic\Filter\NodeSassFilter</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.bin">/usr/bin/node-sass</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.ruby">%assetic.ruby.bin%</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.style">null</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.source_map">false</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.debug">%kernel.debug%</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.load_paths" type="collection">
+            <parameter>%kernel.root_dir%/../web</parameter>
+        </parameter>
+    </parameters>
+
+    <services>
+        <service id="the_island.assetic.filter.node_scss" class="%the_island.assetic.filter.node_scss.class%">
+            <tag name="assetic.filter" alias="node_scss" />
+            <argument>%the_island.assetic.filter.node_scss.bin%</argument>
+            <argument>%the_island.assetic.filter.node_scss.ruby%</argument>
+            <call method="setStyle"><argument>%the_island.assetic.filter.node_scss.style%</argument></call>
+            <call method="setSourceMap"><argument>%the_island.assetic.filter.node_scss.source_map%</argument></call>
+            <call method="setDebugInfo"><argument>%the_island.assetic.filter.node_scss.debug%</argument></call>
+        </service>
+    </services>
+</container>
