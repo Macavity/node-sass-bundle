@@ -68,11 +68,11 @@ class NodeSassFilter extends BaseSassFilter
             $pb->add('--include-path')->add($loadPath);
         }
 
-        $pb->add('--stdout');
-
         // input
         $pb->add($input = tempnam(sys_get_temp_dir(), 'assetic_sass'));
         file_put_contents($input, $asset->getContent());
+
+        $pb->add('--stdout');
 
         $proc = $pb->getProcess();
         $code = $proc->run();
