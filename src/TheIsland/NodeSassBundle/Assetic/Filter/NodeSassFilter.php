@@ -14,13 +14,16 @@ class NodeSassFilter extends BaseSassFilter
 
     private $sassPath;
     private $rubyPath;
+    private $nodePath;
+
     private $style;
     private $debugInfo;
     private $sourceMap;
 
-    public function __construct($sassPath = '/usr/bin/node-sass')
+    public function __construct($sassPath = '/usr/bin/node-sass', $rubyPath = '', $nodePath = null)
     {
         $this->sassPath = $sassPath;
+        $this->nodePath = $nodePath;
     }
 
     public function setStyle($style)
@@ -40,7 +43,11 @@ class NodeSassFilter extends BaseSassFilter
 
     public function filterLoad(AssetInterface $asset)
     {
-        $sassProcessArgs = array($this->sassPath);
+        $sassProcessArgs = array();
+        if (null !== $this->nodePath)
+            $sassProcessArgs[] = $this->nodePath;
+
+        $sassProcessArgs[] = $this->sassPath;
 
         $pb = $this->createProcessBuilder($sassProcessArgs);
 

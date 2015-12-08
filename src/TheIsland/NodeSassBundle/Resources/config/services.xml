@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="the_island.assetic.filter.node_scss.class">TheIsland\NodeSassBundle\Assetic\Filter\NodeSassFilter</parameter>
         <parameter key="the_island.assetic.filter.node_scss.bin">/usr/bin/node-sass</parameter>
+        <parameter key="the_island.assetic.filter.node_scss.node">null</parameter>
         <parameter key="the_island.assetic.filter.node_scss.ruby">%assetic.ruby.bin%</parameter>
         <parameter key="the_island.assetic.filter.node_scss.style">null</parameter>
         <parameter key="the_island.assetic.filter.node_scss.source_map">false</parameter>
@@ -21,6 +22,7 @@
             <tag name="assetic.filter" alias="node_scss" />
             <argument>%the_island.assetic.filter.node_scss.bin%</argument>
             <argument>%the_island.assetic.filter.node_scss.ruby%</argument>
+            <argument>%the_island.assetic.filter.node_scss.node%</argument>
             <call method="setStyle"><argument>%the_island.assetic.filter.node_scss.style%</argument></call>
             <call method="setSourceMap"><argument>%the_island.assetic.filter.node_scss.source_map%</argument></call>
             <call method="setDebugInfo"><argument>%the_island.assetic.filter.node_scss.debug%</argument></call>
