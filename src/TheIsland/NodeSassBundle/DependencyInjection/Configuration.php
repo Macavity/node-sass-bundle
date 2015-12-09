@@ -14,7 +14,7 @@ class Configuration implements ConfigurationInterface {
             ->children()
                 ->scalarNode('apply_to')->end()
                 ->scalarNode('bin')->end()
-                ->scalarNode('node')->end()
+                ->scalarNode('node')->defaultNull()->end()
                 ->scalarNode('style')->end()
                 ->booleanNode('debug')->defaultFalse()->end()
                 ->arrayNode('load_paths')->prototype('scalar')->end()
