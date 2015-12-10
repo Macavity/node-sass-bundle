@@ -33,3 +33,5 @@ the_island_node_sass:
 * **style** - see `--output-style` in `node-sass -h`
 * **debug** - turns on `--source-comments`
 * **load_paths** - adds paths to `--include-path`
+* **node** - path to your local node (might help if node is not on your path)
+ 

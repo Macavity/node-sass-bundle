@@ -4,6 +4,7 @@ namespace TheIsland\NodeSassBundle\Assetic\Filter;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Filter\Sass\BaseSassFilter;
+use Symfony\Component\Process\ProcessBuilder;
 
 class NodeSassFilter extends BaseSassFilter
 {
@@ -13,14 +14,16 @@ class NodeSassFilter extends BaseSassFilter
     const STYLE_COMPRESSED = 'compressed';
 
     private $sassPath;
-    private $rubyPath;
+    private $nodePath;
+
     private $style;
     private $debugInfo;
     private $sourceMap;
 
-    public function __construct($sassPath = '/usr/bin/node-sass')
+    public function __construct($sassPath = '/usr/bin/node-sass', $nodePath = null)
     {
         $this->sassPath = $sassPath;
+        $this->nodePath = $nodePath;
     }
 
     public function setStyle($style)
@@ -40,7 +43,12 @@ class NodeSassFilter extends BaseSassFilter
 
     public function filterLoad(AssetInterface $asset)
     {
-        $sassProcessArgs = array($this->sassPath);
+        $sassProcessArgs = array();
+        if (null !== $this->nodePath) {
+            $sassProcessArgs[] = $this->nodePath;
+        }
+
+        $sassProcessArgs[] = $this->sassPath;
 
         $pb = $this->createProcessBuilder($sassProcessArgs);
 
