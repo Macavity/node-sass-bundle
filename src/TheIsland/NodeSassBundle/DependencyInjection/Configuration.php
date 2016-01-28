@@ -14,6 +14,7 @@ class Configuration implements ConfigurationInterface {
             ->children()
                 ->scalarNode('apply_to')->end()
                 ->scalarNode('bin')->end()
+                ->scalarNode('source_map')->defaultValue(false)->end()
                 ->scalarNode('node')->defaultNull()->end()
                 ->scalarNode('style')->end()
                 ->booleanNode('debug')->defaultFalse()->end()
