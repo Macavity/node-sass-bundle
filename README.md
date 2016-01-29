@@ -34,4 +34,4 @@ the_island_node_sass:
 * **debug** - turns on `--source-comments`
 * **load_paths** - adds paths to `--include-path`
 * **node** - path to your local node (might help if node is not on your path)
- 
+* **source_map** - boolean to set the source_map to true or false

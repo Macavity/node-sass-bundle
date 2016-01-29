@@ -61,7 +61,7 @@ class NodeSassFilter extends BaseSassFilter
         }
 
         if ($this->sourceMap) {
-            $pb->add('--source-map');
+            $pb->add('--source-map true');
         }
 
         if ($this->debugInfo) {
