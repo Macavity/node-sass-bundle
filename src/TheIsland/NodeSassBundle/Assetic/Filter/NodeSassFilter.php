@@ -4,7 +4,7 @@ namespace TheIsland\NodeSassBundle\Assetic\Filter;
 use Assetic\Asset\AssetInterface;
 use Assetic\Exception\FilterException;
 use Assetic\Filter\Sass\BaseSassFilter;
-use Symfony\Component\Process\ProcessBuilder;
+use Symfony\Component\Process\Process;
 
 class NodeSassFilter extends BaseSassFilter
 {
@@ -43,42 +43,40 @@ class NodeSassFilter extends BaseSassFilter
 
     public function filterLoad(AssetInterface $asset)
     {
-        $sassProcessArgs = array();
+        $commandline = array();
         if (null !== $this->nodePath) {
-            $sassProcessArgs[] = $this->nodePath;
+            $commandline[] = $this->nodePath;
         }
 
-        $sassProcessArgs[] = $this->sassPath;
-
-        $pb = $this->createProcessBuilder($sassProcessArgs);
+        $commandline[] = $this->sassPath;
 
         if ($dir = $asset->getSourceDirectory()) {
-            $pb->add('--include-path')->add($dir);
+            array_push($commandline, '--include-path', $dir);
         }
 
         if ($this->style) {
-            $pb->add('--output-style')->add($this->style);
+            array_push($commandline, '--output-style', $this->style);
         }
 
         if ($this->sourceMap) {
-            $pb->add('--source-map true');
+            array_push($commandline, '--source-map true');
         }
 
         if ($this->debugInfo) {
-            $pb->add('--source-comments');
+            array_push($commandline, '--source-comments');
         }
 
         foreach ($this->loadPaths as $loadPath) {
-            $pb->add('--include-path')->add($loadPath);
+            array_push($commandline, '--include-path', $loadPath);
         }
 
         // input
-        $pb->add($input = tempnam(sys_get_temp_dir(), 'assetic_sass'));
+        array_push($commandline, $input = tempnam(sys_get_temp_dir(), 'assetic_sass'));
         file_put_contents($input, $asset->getContent());
 
-        $pb->add('--stdout');
+        array_push($commandline, '--stdout');
 
-        $proc = $pb->getProcess();
+        $proc = new Process($commandline);
         $code = $proc->run();
         unlink($input);
 
