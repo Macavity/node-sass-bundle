@@ -9,10 +9,12 @@
             "email": "dmzkrsk@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
 
     "require": {
         "php": ">=5.3.3",
-        "kriswallsmith/assetic": "~1.2,>=1.2.1",
+        "kriswallsmith/assetic": "1.5.x-dev",
         "symfony/config": ">=2.4",
         "symfony/http-kernel": ">=2.4",
         "symfony/dependency-injection": ">=2.4"
@@ -21,6 +23,17 @@
     "autoload": {
         "psr-0": {
             "TheIsland": "src/"
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/macavity/assetic"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.6-dev"
         }
     }
 }
